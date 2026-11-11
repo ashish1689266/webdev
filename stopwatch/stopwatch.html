@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+      }
+
+      .wrapper {
+        text-align: center;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        min-width: 350px;
+      }
+
+      h1 {
+        color: #1e293b;
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 4rem;
+        font-weight: bold;
+        color: #2563eb;
+        margin-bottom: 25px;
+      }
+
+      button {
+        border: none;
+        padding: 12px 24px;
+        margin: 5px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      #button-start {
+        background: #22c55e;
+        color: white;
+      }
+
+      #button-stop {
+        background: #ef4444;
+        color: white;
+      }
+
+      #button-reset {
+        background: #f59e0b;
+        color: white;
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      button:active {
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Stopwatch</h1>
+      <p><span id="seconds">00</span>:<span id="milliseconds">00</span></p>
+      <button id="button-start">Start</button>
+      <button id="button-stop">Stop</button>
+      <button id="button-reset">Reset</button>
+    </div>
+    <script>
+      window.onload = function () {
+        var seconds = 0;
+        var milliseconds = 0;
+        var appendMilliseconds = document.getElementById("milliseconds");
+        var appendSeconds = document.getElementById("seconds");
+        var buttonStart = document.getElementById("button-start");
+        var buttonStop = document.getElementById("button-stop");
+        var buttonReset = document.getElementById("button-reset");
+        var Interval;
+
+        buttonStart.onclick = function () {
+          clearInterval(Interval);
+          Interval = setInterval(startTimer, 10);
+        };
+
+        buttonStop.onclick = function () {
+          clearInterval(Interval);
+        };
+
+        buttonReset.onclick = function () {
+          clearInterval(Interval);
+          milliseconds = "00";
+          seconds = "00";
+          appendMilliseconds.innerHTML = milliseconds;
+          appendSeconds.innerHTML = seconds;
+        };
+
+        function startTimer() {
+          milliseconds++;
+
+          if (milliseconds <= 9) {
+            appendMilliseconds.innerHTML = "0" + milliseconds;
+          }
+          if (milliseconds > 9) {
+            appendMilliseconds.innerHTML = milliseconds;
+          }
+          if (milliseconds > 99) {
+            seconds++;
+            appendSeconds.innerHTML = seconds;
+            milliseconds = 0;
+            appendMilliseconds.innerHTML = "00";
+          }
+          if (seconds > 9) {
+            appendSeconds.innerHTML = seconds;
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
